@@ -1,3 +1,4 @@
+
 import spacy
 from spacy.matcher import PhraseMatcher
 
@@ -38,6 +39,7 @@ SKILLS = [
     "postgresql",
     "mongodb",
     "rest api",
+    "rest apis",
     "linux",
     "vlsi",
     "verilog",
@@ -55,15 +57,18 @@ matcher.add("SKILLS", patterns)
 
 
 def extract_skills(text):
-
     doc = nlp(text)
-
     matches = matcher(doc)
 
     found_skills = set()
 
     for match_id, start, end in matches:
         skill = doc[start:end].text.lower()
+
+        # Normalize REST APIs to REST API
+        if skill == "rest apis":
+            skill = "rest api"
+
         found_skills.add(skill)
 
     return sorted(found_skills)
