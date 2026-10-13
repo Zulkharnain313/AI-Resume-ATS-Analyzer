@@ -62,7 +62,6 @@ class ResumeRequest(BaseModel):
 # ---------------------------------------------------------
 
 def calculate_ats_score(resume, job_description):
-
     resume_skills = set(extract_skills(resume))
     job_skills = set(extract_skills(job_description))
 
@@ -112,7 +111,6 @@ def calculate_ats_score(resume, job_description):
 # ---------------------------------------------------------
 
 def generate_recommendations(missing_skills):
-
     return [
         f"Consider learning {skill} and gaining hands-on "
         f"experience before adding it to your resume."
@@ -126,7 +124,6 @@ def generate_recommendations(missing_skills):
 
 @app.post("/analyze")
 def analyze_resume(request: ResumeRequest):
-
     ats_result = calculate_ats_score(
         request.resume,
         request.job_description
@@ -165,7 +162,6 @@ def analyze_resume(request: ResumeRequest):
 
 @app.post("/upload-resume")
 async def upload_resume(file: UploadFile = File(...)):
-
     if not file.filename or not file.filename.lower().endswith(".pdf"):
         raise HTTPException(
             status_code=400,
@@ -205,7 +201,6 @@ async def analyze_pdf(
     file: UploadFile = File(...),
     job_description: str = Form(...)
 ):
-
     if not file.filename or not file.filename.lower().endswith(".pdf"):
         raise HTTPException(
             status_code=400,
@@ -315,7 +310,6 @@ async def analyze_pdf(
 
 @app.get("/analyses")
 def get_all_analyses():
-
     db = SessionLocal()
 
     try:
@@ -352,7 +346,6 @@ def get_all_analyses():
 
 @app.get("/analyses/{analysis_id}")
 def get_analysis_by_id(analysis_id: int):
-
     db = SessionLocal()
 
     try:
@@ -440,7 +433,6 @@ def update_analysis(
 
 @app.delete("/analyses/{analysis_id}")
 def delete_analysis(analysis_id: int):
-
     db = SessionLocal()
 
     try:
