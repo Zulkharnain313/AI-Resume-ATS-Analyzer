@@ -1,5 +1,6 @@
 
 from fastapi import FastAPI, UploadFile, File, Form, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
 from app.pdf_parser import extract_text_from_pdf
@@ -23,6 +24,20 @@ app = FastAPI(
     title="AI Resume ATS Analyzer",
     description="API for analyzing resumes against job descriptions",
     version="1.0.0"
+)
+
+# ---------------------------------------------------------
+# CORS CONFIGURATION
+# ---------------------------------------------------------
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://localhost:5173",
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 
