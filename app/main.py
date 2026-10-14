@@ -1,4 +1,4 @@
-```python
+
 from fastapi import FastAPI, UploadFile, File, Form, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
@@ -7,7 +7,6 @@ from app.pdf_parser import extract_text_from_pdf
 from app.skill_extractor import extract_skills
 from app.embedding import calculate_similarity
 from app.llm import analyze_resume_with_llm
-
 from app.database import Base, engine, SessionLocal
 from app.models import ResumeAnalysis
 
