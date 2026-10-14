@@ -1,4 +1,4 @@
-
+```python
 from fastapi import FastAPI, UploadFile, File, Form, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
@@ -8,12 +8,20 @@ from app.skill_extractor import extract_skills
 from app.embedding import calculate_similarity
 from app.llm import analyze_resume_with_llm
 
-from app.database import SessionLocal
+from app.database import Base, engine, SessionLocal
 from app.models import ResumeAnalysis
 
 import tempfile
 import os
 import json
+
+
+# ---------------------------------------------------------
+# DATABASE INITIALIZATION
+# ---------------------------------------------------------
+
+# Create missing database tables when the application starts.
+Base.metadata.create_all(bind=engine)
 
 
 # ---------------------------------------------------------
@@ -25,6 +33,7 @@ app = FastAPI(
     description="API for analyzing resumes against job descriptions",
     version="1.0.0"
 )
+
 
 # ---------------------------------------------------------
 # CORS CONFIGURATION
@@ -127,8 +136,10 @@ def calculate_ats_score(resume, job_description):
 
 def generate_recommendations(missing_skills):
     return [
-        f"Consider learning {skill} and gaining hands-on "
-        f"experience before adding it to your resume."
+        (
+            f"Consider learning {skill} and gaining hands-on "
+            f"experience before adding it to your resume."
+        )
         for skill in missing_skills
     ]
 
