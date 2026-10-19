@@ -1,23 +1,34 @@
 
-# Python cache files
+# Python
 __pycache__/
 *.py[cod]
-.pytest_cache/
+*.egg-info/
 
 # Virtual environment
 venv/
 .venv/
 
-# Environment variables and API keys
+# Environment variables and secrets
 .env
 .env.*
-
-# Keep an example configuration file if you create one
 !.env.example
 
-# Local database
-resume_analyzer.db
+# Local databases
 *.db
+*.sqlite
+*.sqlite3
 
-# Editor settings
+# Testing and coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Frontend dependencies and build output
+node_modules/
+frontend/node_modules/
+frontend/dist/
+
+# Editor and operating system files
 .vscode/
+.DS_Store
+Thumbs.db
